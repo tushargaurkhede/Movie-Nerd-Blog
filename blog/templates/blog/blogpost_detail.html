@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>Title: {{ blogpost.title }}</h1>
+
+	<p><strong>Post date </strong> {{ blogpost.post_date }}</p>
+	<p><strong>Author </strong> <a href="{% url 'blogger_detail' blogpost.blogger.pk %}">{{ blogpost.blogger }}</a></p>
+	<p><strong>Genre </strong>
+		{% for topic in blogpost.topic.all %}
+			<a href="{% url 'topic_detail' topic.pk %}">{{ topic.name }}</a>
+		{% endfor %}
+	</p>
+	<p><strong>Description</strong><br>{{ blogpost.post }}</p>
+	{% if user.is_authenticated %}
+		<button><a href="{% url 'comment_create' pk=blogpost.pk %}">Add a new comment</a></button>
+	{% endif %}
+	<p><strong>Comments</strong>
+		<hr>
+		{% for comment in blogpost.comments.all %}
+			<div class="comment">
+				<div class="date">{{ comment.post_date }}</div>
+				<p><strong>{{ comment.commenter }}</strong> - {{ comment.comment }} 
+					{% if user.is_authenticated %}
+						{% if user == comment.commenter %}
+							<a href="{% url 'comment_update' pk=comment.pk %}">Update</a>
+							<a href="{% url 'comment_delete' pk=comment.pk %}">Delete</a>
+						{% endif %}
+					{% endif %}	
+				</p>
+			</div>
+		{% empty %}
+			<p>No comments here yet :(</p>
+		{% endfor %}			
+	</p>	
+{% endblock %}	
+

@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>Blog List:</h1>
+	{% if blogpost_list %}
+	<ul>
+		{% for blogpost in blogpost_list %}
+			<li>
+				<a href="{% url 'blogpost_detail' blogpost.pk %}">{{ blogpost.title }}</a> ({{ blogpost.post_date }}) - <a href="{% url 'blogger_detail' pk=blogpost.blogger.pk %}">{{ blogpost.blogger }}</a> - Comments: <a href="{% url 'blogpost_detail' pk=blogpost.pk %}">{{ blogpost.comments.count }}</a>
+			</li>
+		{% endfor %}	
+	</ul>
+	{% else %}
+		<p>There are no blogs to show.</p>
+	{% endif %}
+{% endblock %}		

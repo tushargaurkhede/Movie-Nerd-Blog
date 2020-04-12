@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>Movie Nerd Home</h1>
+	<p>Welcome to Movie Nerd - a website where you can find latest reviews and opinions on Bollywood and Hollywood movies</p>
+	<p>Here is what's on offer:</p>
+	<ul>
+		<li><strong>Views & Reviews:</strong>
+			<ul>
+				{% for blogpost in blogposts %}
+					<li><a href="{% url 'blogpost_detail' blogpost.pk %}">{{ blogpost.title }}</a></li>
+				{% endfor %}
+			</ul>	
+		</li>
+		<li><strong>Bloggers:</strong>
+			<ul>
+				{% for blogger in bloggers %}
+					<li><a href="{% url 'blogger_detail' blogger.pk %}">{{ blogger.last_name }}, {{ blogger.first_name }}</a></li>
+				{% endfor %}
+			</ul>	
+		</li>
+		<li><strong>Topics:</strong>
+			<ul>
+				{% for topic in topics %}
+					<li><a href="{% url 'topic_detail' topic.pk %}">{{ topic.name }}</a></li>
+				{% endfor %}
+			</ul>
+		</li>
+	</ul>
+{% endblock %}	

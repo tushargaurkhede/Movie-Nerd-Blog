@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>Here are the blogs listed under the topic: "{{ topic.name }}"</h1>
+	<ul>
+		{% for blogpost in topic.blogpost_set.all %}
+		<li><a href="{% url 'blogpost_detail' blogpost.pk %}">{{ blogpost.title }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+
+
+
+	
